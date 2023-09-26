@@ -1,0 +1,6 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+balanced_train_data.npy
+train_data.npy
+my_model.h5
