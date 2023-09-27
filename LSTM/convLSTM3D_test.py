@@ -79,21 +79,14 @@ model.add(ConvLSTM3D(filters=32, kernel_size=(3, 3, 3), activation='relu',
                      input_shape=(past_frames, rows, cols, None,1),
                      padding='same', return_sequences=False))
 model.add(BatchNormalization())
-
 model.add(Dense(16, activation='sigmoid'))
-
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 
 model.fit(train_inputs, train_outputs, epochs=3, batch_size=32, validation_data=(test_inputs, test_outputs))
-
-# 保存模型
 model.save('my_model.h5')
 print('Model saved.')
-
-# 加载模型
 loaded_model = tf.keras.models.load_model('my_model.h5')
 print('Model loaded.')
-
 test_loss, test_acc = loaded_model.evaluate(test_inputs, test_outputs)
 print('Test accuracy:', test_acc)
