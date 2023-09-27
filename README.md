@@ -2,4 +2,4 @@
 to autopilot Forza Horizon using AI
 
 * current step -> CNN
-* next step -> convLSTM
+* next step -> convLSTM3D
