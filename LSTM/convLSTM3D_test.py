@@ -1,7 +1,7 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import ConvLSTM3D, BatchNormalization, Flatten, Dense
+from keras.layers import ConvLSTM2D, BatchNormalization, Flatten, Dense
 import tensorflow as tf
 
 def one_hot_encode(number, num_classes):
@@ -37,13 +37,17 @@ def encode_list(lst):
 rows = 100
 cols = 200
 channels = 1
-past_frames = 8
+past_frames = 3
 
 # Step1 : load datasets
 data = np.load('train_data.npy', allow_pickle=True)
 
 inputs = np.array([item[0] for item in data])
 outputs = np.array([item[1] for item in data])
+inputs = np.expand_dims(inputs, axis=-1)
+
+
+
 
 # Step2 : encode datasets
 
@@ -64,7 +68,7 @@ for i in range(len(inputs)):
     if end_ix > len(inputs) - 1:
         break
 # gather input and output parts of the pattern
-    seq_x, seq_y = inputs[i:end_ix], outputs[end_ix]
+    seq_x, seq_y = inputs[i:end_ix], outputs[i:end_ix]
     X.append(seq_x)
     y.append(seq_y)
 
@@ -75,22 +79,24 @@ train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(X, y, 
 # Step5 : Define model
 
 model = Sequential()
-model.add(ConvLSTM3D(filters=32, kernel_size=(3, 3, 3), activation='relu',
-                     input_shape=(past_frames, rows, cols, None, 1),
-                     padding='same', return_sequences=False))
+model.add(ConvLSTM2D(filters=32, kernel_size=( 3, 3), activation='relu',
+                     input_shape=(past_frames, rows, cols, 1),
+                     padding='same',return_sequences=True, data_format='channels_last'))
+model.add(ConvLSTM2D(filters=16, kernel_size=(3, 3), padding='same', return_sequences=False))
 model.add(BatchNormalization())
-model.add(Dense(16, activation='sigmoid'))
+model.add(Dense(16, activation='softmax'))
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Step6 : Train model
 
-model.fit(train_inputs, train_outputs, epochs=3, batch_size=32, validation_data=(test_inputs, test_outputs))
+print(np.shape(train_inputs),np.shape(train_outputs))
+model.fit(train_inputs, train_outputs, epochs=3,  validation_data=(test_inputs, test_outputs))
 
 # Step7 : Test model
 
-model.save('my_model.h5')
-print('Model saved.')
-loaded_model = tf.keras.models.load_model('my_model.h5')
-print('Model loaded.')
-test_loss, test_acc = loaded_model.evaluate(test_inputs, test_outputs)
-print('Test accuracy:', test_acc)
+# model.save('my_model.h5')
+# print('Model saved.')
+# loaded_model = tf.keras.models.load_model('my_model.h5')
+# print('Model loaded.')
+# test_loss, test_acc = loaded_model.evaluate(test_inputs, test_outputs)
+# print('Test accuracy:', test_acc)
