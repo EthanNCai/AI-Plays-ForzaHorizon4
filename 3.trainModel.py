@@ -39,7 +39,7 @@ def encode_list(lst):
 
     return encoded_lst
 
-
+#  [1,0,0,0,0,0,0,0,0,0,0,0,0]
 # 加载数据
 data = np.load('balanced_train_data.npy', allow_pickle=True)
 
@@ -76,6 +76,7 @@ model.compile(optimizer='adam',
 # 将输入数据调整为模型需要的形状
 train_inputs = np.expand_dims(train_inputs, axis=-1)
 test_inputs = np.expand_dims(test_inputs, axis=-1)
+print(np.shape(train_inputs),np.shape(train_outputs))
 # 训练模型
 model.fit(train_inputs, train_outputs, epochs=3, batch_size=128, validation_data=(test_inputs, test_outputs))
 

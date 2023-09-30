@@ -8,7 +8,20 @@ import cv2
 train_data = list(np.load('train_data.npy', allow_pickle=True))
 df = pd.DataFrame(train_data)
 counter = Counter(map(tuple, df[1]))
-balanced_count = min(counter[(1, 0, 0, 1)],counter[(1, 1, 0, 0)],counter[(1, 0, 0, 0)])*5
+balanced_count = min(counter[(1, 0, 0, 1)], counter[(1, 1, 0, 0)], counter[(1, 0, 0, 0)])*5
+
+
+# W:100000
+# WA:2000
+# WD:3000
+
+# balanced_count = 10000
+
+
+# W:10000
+# WA:2000
+# WD:3000
+
 
 forward = []
 left = []
@@ -26,7 +39,6 @@ for data in train_data:
         right.append([img, choice])
     else:
         other.append([img, choice])
-
 
 if balanced_count < len(forward):
     forward = forward[:balanced_count]

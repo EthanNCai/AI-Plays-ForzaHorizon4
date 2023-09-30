@@ -57,9 +57,7 @@ for data in train_data:
     target = data[1]
     cv2.imshow('test', img)
     result = translate_array(target)
-
     test_inputs = np.expand_dims([img], axis=-1)
-
     prediction = loaded_model.predict(test_inputs)
     result_literal = translate_array(decode_value(np.argmax(prediction[0])))
     print(result_literal)
