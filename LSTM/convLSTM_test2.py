@@ -1,8 +1,12 @@
 import numpy as np
 from sklearn.model_selection import train_test_split
 from keras.models import Sequential
-from keras.layers import ConvLSTM2D, BatchNormalization, Flatten, Dense, MaxPooling3D, TimeDistributed, Dropout
+from keras.layers import ConvLSTM2D, BatchNormalization, Flatten, Dense, MaxPooling3D, TimeDistributed, Dropout, CuDNNLSTM
 import tensorflow as tf
+
+
+import os
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
 from tensorflow.keras.utils import plot_model
 
 print(tf.test.is_gpu_available())
@@ -42,7 +46,7 @@ def encode_list(lst):
 rows = 100
 cols = 200
 channels = 1
-past_frames = 120
+past_frames = 10
 
 # Step1 : load datasets
 data = np.load('train_data.npy', allow_pickle=True)
@@ -82,45 +86,23 @@ train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(X, y, 
 
 model = Sequential()
 
-# Define the Model Architecture.
-########################################################################################################################
-
 model.add(ConvLSTM2D(filters=4, kernel_size=(3, 3), activation='tanh', data_format="channels_last",
-                     recurrent_dropout=0.2, return_sequences=True, input_shape=(120, 100, 200, 1)))
-
-model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channels_last'))
-model.add(TimeDistributed(Dropout(0.2)))
-
-model.add(ConvLSTM2D(filters=8, kernel_size=(3, 3), activation='tanh', data_format="channels_last",
-                     recurrent_dropout=0.2, return_sequences=True))
-
-model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channels_last'))
-model.add(TimeDistributed(Dropout(0.2)))
-
-model.add(ConvLSTM2D(filters=14, kernel_size=(3, 3), activation='tanh', data_format="channels_last",
-                     recurrent_dropout=0.2, return_sequences=True))
-
-model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channels_last'))
-model.add(TimeDistributed(Dropout(0.2)))
-
-model.add(ConvLSTM2D(filters=16, kernel_size=(3, 3), activation='tanh', data_format="channels_last",
-                     recurrent_dropout=0.2, return_sequences=True))
-
+                     recurrent_dropout=0.2, return_sequences=True, input_shape=(10, 100, 200, 1)))
 model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channels_last'))
 # model.add(TimeDistributed(Dropout(0.2)))
 
 model.add(Flatten())
 
 model.add(Dense(16, activation="softmax"))
-plot_model(model, to_file='convlstm_model_structure_plot.png', show_shapes=True, show_layer_names=True)
+# plot_model(model, to_file='convlstm_model_structure_plot.png', show_shapes=True, show_layer_names=True)
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Step6 : Train model
 
 print(np.shape(train_inputs), np.shape(train_outputs))
 
-model.fit(np.asarray(train_inputs), np.array(train_outputs), epochs=10, batch_size=4,
-          validation_data=(test_inputs, test_outputs))
+model.fit(np.asarray(train_inputs), np.array(train_outputs), epochs=1, batch_size=4,
+          validation_data=(np.asarray(test_inputs), np.array(test_outputs)))
 
 # Step7 : Test model
 
@@ -128,5 +110,5 @@ model.save('my_model.h5')
 print('Model saved.')
 loaded_model = tf.keras.models.load_model('my_model.h5')
 print('Model loaded.')
-test_loss, test_acc = loaded_model.evaluate(test_inputs, test_outputs)
+test_loss, test_acc = loaded_model.evaluate(np.asarray(test_inputs), np.array(test_outputs))
 print('Test accuracy:', test_acc)
