@@ -3,3 +3,6 @@
 /train_data.npy
 /LSTM/train_data.npy
 /LSTM/balanced_train_data.npy
+/LSTM/convlstm_model_structure_plot.png
+/LSTM/my_model.h5
+/LSTM/queueTest.py
