@@ -26,6 +26,7 @@ for label, count in counter_list:
 
 # shuffle data
 random.shuffle(balanced_data)
+
 print('balanced_data')
 print(Counter(pd.DataFrame(balanced_data)[1].apply(str)))
 

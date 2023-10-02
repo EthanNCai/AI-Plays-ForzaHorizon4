@@ -39,9 +39,10 @@ def encode_list(lst):
 
     return encoded_lst
 
+
 #  [1,0,0,0,0,0,0,0,0,0,0,0,0]
 # 加载数据
-data = np.load('../balanced_train_data.npy', allow_pickle=True)
+data = np.load('balanced_data.npy', allow_pickle=True)
 
 # 分割输入和输出
 inputs = np.array([item[0] for item in data])
@@ -63,8 +64,9 @@ model = tf.keras.Sequential([
     tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
     tf.keras.layers.MaxPooling2D(2, 2),
+    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+    tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Flatten(),
-    # tf.keras.layers.Dense(64, activation='relu'),
     tf.keras.layers.Dense(16, activation='softmax')
 ])
 
@@ -76,7 +78,7 @@ model.compile(optimizer='adam',
 # 将输入数据调整为模型需要的形状
 train_inputs = np.expand_dims(train_inputs, axis=-1)
 test_inputs = np.expand_dims(test_inputs, axis=-1)
-print(np.shape(train_inputs),np.shape(train_outputs))
+print(np.shape(train_inputs), np.shape(train_outputs))
 # 训练模型
 model.fit(train_inputs, train_outputs, epochs=3, batch_size=128, validation_data=(test_inputs, test_outputs))
 

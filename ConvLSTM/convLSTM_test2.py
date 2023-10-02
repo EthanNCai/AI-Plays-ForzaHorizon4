@@ -4,6 +4,9 @@ from keras.models import Sequential
 from keras.layers import ConvLSTM2D, BatchNormalization, Flatten, Dense, MaxPooling3D, TimeDistributed, Dropout, CuDNNLSTM
 import tensorflow as tf
 from collections import Counter
+import pandas as pd
+import statistics
+import random
 import sys
 
 import os
@@ -47,7 +50,7 @@ def encode_list(lst):
 rows = 100
 cols = 200
 channels = 1
-past_frames = 100
+past_frames = 60
 
 # Step1 : load datasets
 data = np.load('train_data.npy', allow_pickle=True)
@@ -76,8 +79,30 @@ for i in range(len(inputs)):
     X.append(seq_x)
     y.append(seq_y)
 
+unbalanced_data = [[a, b] for a, b in zip(X, y)]
 
-train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(X, y, test_size=0.2,
+counter = Counter(map(tuple, pd.DataFrame(unbalanced_data)[1]))
+counter_list = [(label, count) for label, count in counter.items()]
+balancing_target = int(statistics.mean(count for _, count in counter_list))
+
+print('original_data:')
+print(counter)
+
+# manipulate data according to balancing target
+balanced_data = []
+for label, count in counter_list:
+    label_data = [[i, l] for i, l in unbalanced_data if (label == l).all()]
+    if count < balancing_target:
+        balanced_data += label_data
+    else:
+        balanced_data += random.sample(label_data, balancing_target)
+
+# shuffle data
+random.shuffle(balanced_data)
+
+
+
+train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(np.asarray([item[0] for item in balanced_data]), np.array([item[1] for item in balanced_data]), test_size=0.2,
                                                                           random_state=233)
 # Step5 : Define model
 

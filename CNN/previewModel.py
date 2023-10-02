@@ -49,7 +49,7 @@ def decode_value(encoded_input):
     return decoded_value
 
 
-file_name = '../train_data.npy'
+file_name = 'train_data.npy'
 train_data = list(np.load(file_name, allow_pickle=True))
 loaded_model = tf.keras.models.load_model('my_model.h5')
 for data in train_data:
@@ -60,7 +60,7 @@ for data in train_data:
     test_inputs = np.expand_dims([img], axis=-1)
     prediction = loaded_model.predict(test_inputs)
     result_literal = translate_array(decode_value(np.argmax(prediction[0])))
-    print(result_literal)
+    print('predicted ->', result_literal)
 
     if cv2.waitKey(25) & 0xFF == ord('q'):
         cv2.destroyAllWindows()

@@ -11,3 +11,4 @@
 /ConvLSTM/convlstm_model_structure_plot.png
 /.idea
 /CNN/balanced_data.npy
+/CNN/my_model.h5
