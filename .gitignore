@@ -10,3 +10,4 @@
 /CNN/train_data.npy
 /ConvLSTM/convlstm_model_structure_plot.png
 /.idea
+/CNN/balanced_data.npy
