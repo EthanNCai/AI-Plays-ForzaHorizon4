@@ -2,9 +2,9 @@ import os.path
 
 import cv2
 import time
-from grabscreen import grab_screen
+from Utilities.grabscreen import grab_screen
 import numpy as np
-from getkeys import key_check
+from Utilities.getkeys import key_check
 
 
 def processing_image(screen_in):
@@ -54,7 +54,7 @@ def keys_to_output(keys_in):
 # code begins here
 
 
-file_name = 'train_data.npy'
+file_name = '../train_data.npy'
 if os.path.isfile(file_name):
     print('模型文件已经存在，将会Append.....')
     training_data = list(np.load(file_name, allow_pickle=True))

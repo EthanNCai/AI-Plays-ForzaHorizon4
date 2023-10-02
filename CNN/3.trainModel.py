@@ -41,7 +41,7 @@ def encode_list(lst):
 
 #  [1,0,0,0,0,0,0,0,0,0,0,0,0]
 # 加载数据
-data = np.load('balanced_train_data.npy', allow_pickle=True)
+data = np.load('../balanced_train_data.npy', allow_pickle=True)
 
 # 分割输入和输出
 inputs = np.array([item[0] for item in data])

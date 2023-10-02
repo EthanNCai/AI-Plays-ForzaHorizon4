@@ -1,8 +1,8 @@
 import cv2
 import time
-from grabscreen import grab_screen
+from Utilities.grabscreen import grab_screen
 import numpy as np
-from directkeys import PressKey, ReleaseKey, W, A, S, D
+from Utilities.directkeys import PressKey, ReleaseKey, W, A, S, D
 import tensorflow as tf
 
 t_time = 0.001

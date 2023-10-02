@@ -1,6 +1,6 @@
 import numpy as np
 import cv2
-import queue
+
 import tensorflow as tf
 
 
@@ -49,9 +49,7 @@ def decode_value(encoded_input):
     return decoded_value
 
 
-past_frames = 10
-q = queue.Queue(maxsize=past_frames)
-file_name = 'train_data.npy'
+file_name = '../train_data.npy'
 train_data = list(np.load(file_name, allow_pickle=True))
 loaded_model = tf.keras.models.load_model('my_model.h5')
 for data in train_data:
@@ -59,15 +57,8 @@ for data in train_data:
     target = data[1]
     cv2.imshow('test', img)
     result = translate_array(target)
-    test_inputs = np.expand_dims(img, axis=-1)
-    if q.qsize() == past_frames:
-        q.get()
-    q.put(test_inputs)
-    if q.qsize() < past_frames:
-        continue
-    sequential_input = np.asarray(list(q.queue))
-    sequential_input = np.expand_dims(sequential_input, axis=0)
-    prediction = loaded_model.predict(sequential_input)
+    test_inputs = np.expand_dims([img], axis=-1)
+    prediction = loaded_model.predict(test_inputs)
     result_literal = translate_array(decode_value(np.argmax(prediction[0])))
     print(result_literal)
 

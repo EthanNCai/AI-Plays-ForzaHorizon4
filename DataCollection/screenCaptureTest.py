@@ -1,6 +1,5 @@
 import cv2
-import time
-from grabscreen import grab_screen
+from Utilities.grabscreen import grab_screen
 import numpy as np
 
 while True:

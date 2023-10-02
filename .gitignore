@@ -1,8 +1,11 @@
 /balanced_train_data.npy
 /my_model.h5
 /train_data.npy
-/LSTM/train_data.npy
-/LSTM/balanced_train_data.npy
-/LSTM/convlstm_model_structure_plot.png
-/LSTM/my_model.h5
-/LSTM/queueTest.py
+/ConvLSTM/train_data.npy
+/ConvLSTM/balanced_train_data.npy
+/ConvLSTM/convlstm_model_structure_plot.png
+/ConvLSTM/my_model.h5
+/ConvLSTM/queueTest.py
+/DataCollection/train_data.npy
+/CNN/train_data.npy
+/ConvLSTM/convlstm_model_structure_plot.png
