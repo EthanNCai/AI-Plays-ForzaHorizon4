@@ -49,11 +49,11 @@ def decode_value(encoded_input):
     return decoded_value
 
 
-past_frames = 10
+past_frames = 60
 q = queue.Queue(maxsize=past_frames)
 file_name = 'train_data.npy'
 train_data = list(np.load(file_name, allow_pickle=True))
-loaded_model = tf.keras.models.load_model('my_model.h5')
+loaded_model = tf.keras.models.load_model('my_model{60steps}.h5')
 for data in train_data:
     img = data[0]
     target = data[1]
@@ -67,6 +67,7 @@ for data in train_data:
         continue
     sequential_input = np.asarray(list(q.queue))
     sequential_input = np.expand_dims(sequential_input, axis=0)
+    print(sequential_input.shape)
     prediction = loaded_model.predict(sequential_input)
 
     result_literal = translate_array(decode_value(np.argmax(prediction[0])))

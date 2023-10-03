@@ -1,8 +1,7 @@
 import numpy as np
 import cv2
-
 import tensorflow as tf
-
+import Utilities.onehot
 
 def translate_array(array):
     if np.array_equal(array, [1, 0, 0, 0]):

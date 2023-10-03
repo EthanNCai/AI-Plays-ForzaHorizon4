@@ -12,3 +12,5 @@
 /.idea
 /CNN/balanced_data.npy
 /CNN/my_model.h5
+/ConvLSTM/my_model{60steps}.h5
+/ConvLSTM/a_little_test.py
