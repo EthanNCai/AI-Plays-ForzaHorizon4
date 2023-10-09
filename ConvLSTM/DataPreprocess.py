@@ -8,7 +8,7 @@ import random
 rows = 100
 cols = 200
 channels = 1
-past_frames = 60
+past_frames = 20
 
 # Step1 : load datasets
 data = np.load('Files/train_data.npy', allow_pickle=True)
@@ -17,7 +17,7 @@ outputs = np.array([item[1] for item in data])
 
 # Step2 : one-hot encode the label
 outputs = np.array(Utilities.onehot.onehot_encode(outputs))
-# inputs = np.expand_dims(inputs, axis=-1)
+inputs = np.expand_dims(inputs, axis=-1)
 
 # Step3 : turn into sequential data
 
@@ -50,6 +50,7 @@ random.shuffle(balanced_data)
 
 # Step5 : save to file
 
+print('OK')
 np.save('Files/preprocessed_data.npy', np.array(balanced_data, dtype=object))
 
 
