@@ -8,7 +8,7 @@ import random
 rows = 100
 cols = 200
 channels = 1
-past_frames = 7
+past_frames = 60
 
 # Step1 : load datasets
 data = np.load('Files/train_data.npy', allow_pickle=True)
@@ -52,5 +52,4 @@ random.shuffle(balanced_data)
 
 np.save('Files/preprocessed_data.npy', np.array(balanced_data, dtype=object))
 
-# why reject
 
