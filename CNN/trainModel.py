@@ -1,15 +1,15 @@
 import numpy as np
 import tensorflow as tf
 from sklearn.model_selection import train_test_split
-import Utilities.onehot as oh
+import Utilities.onehot
 
 # load data
-data = np.load('balanced_data.npy', allow_pickle=True)
+data = np.load('Files/balanced_data.npy', allow_pickle=True)
 inputs = np.array([item[0] for item in data])
 outputs = np.array([item[1] for item in data])
 
 # one-hot encode the output and adjust input shape to (w,h,depth)
-outputs = np.array(oh.onehot_encode(outputs))
+outputs = np.array(Utilities.onehot.onehot_encode(outputs))
 inputs = np.expand_dims(inputs, axis=-1)
 
 # train data set and test data set splitting
@@ -17,7 +17,8 @@ train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(inputs
                                                                           random_state=42)
 # model construction
 model = tf.keras.Sequential([
-    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(100, 200, 1)),
+    tf.keras.layers.Conv2D(32, (3, 3), activation='relu',
+                           input_shape=(inputs.shape[1], inputs.shape[2], inputs.shape[3])),
     tf.keras.layers.MaxPooling2D(2, 2),
     tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
     tf.keras.layers.MaxPooling2D(2, 2),

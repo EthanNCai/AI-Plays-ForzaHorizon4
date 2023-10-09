@@ -51,7 +51,7 @@ def decode_value(encoded_input):
 
 past_frames = 60
 q = queue.Queue(maxsize=past_frames)
-file_name = 'train_data.npy'
+file_name = 'Files/train_data.npy'
 train_data = list(np.load(file_name, allow_pickle=True))
 loaded_model = tf.keras.models.load_model('my_model{60steps}.h5')
 for data in train_data:

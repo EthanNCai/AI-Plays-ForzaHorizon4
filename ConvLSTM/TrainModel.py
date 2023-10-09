@@ -54,7 +54,7 @@ channels = 1
 past_frames = 60
 
 # Step1 : load datasets
-data = np.load('train_data.npy', allow_pickle=True)
+data = np.load('Files/train_data.npy', allow_pickle=True)
 
 inputs = np.asarray([item[0] for item in data])
 outputs = np.array([item[1] for item in data])
@@ -81,7 +81,6 @@ for i in range(len(inputs)):
     y.append(seq_y)
 
 unbalanced_data = [[a, b] for a, b in zip(X, y)]
-
 counter = Counter(map(tuple, pd.DataFrame(unbalanced_data)[1]))
 counter_list = [(label, count) for label, count in counter.items()]
 balancing_target = int(statistics.mean(count for _, count in counter_list))
@@ -113,7 +112,7 @@ model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channel
 model.add(Flatten())
 model.add(Dense(16, activation="softmax"))
 
-plot_model(model, to_file='convlstm_model_structure_plot.png', show_shapes=True, show_layer_names=True)
+plot_model(model, to_file='Files/convlstm_model_structure_plot.png', show_shapes=True, show_layer_names=True)
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
 
 # Step6 : Train model
