@@ -3,17 +3,25 @@ import pandas as pd
 from collections import Counter
 import statistics
 import random
+import Utilities.onehot
 
 # load data
-unbalanced_data = list(np.load('./train_data.npy', allow_pickle=True))
+data = list(np.load('Files/train_data.npy', allow_pickle=True))
 
+inputs = np.asarray([item[0] for item in data])
+outputs = np.array([item[1] for item in data])
+
+inputs = np.expand_dims(inputs, axis=-1)
+outputs = np.array(Utilities.onehot.onehot_encode(outputs))
+
+unbalanced_data = [[a, b] for a, b in zip(inputs, outputs)]
 # counting label & decide balancing target
 counter = Counter(map(tuple, pd.DataFrame(unbalanced_data)[1]))
 counter_list = [(label, count) for label, count in counter.items()]
 balancing_target = int(statistics.mean(count for _, count in counter_list))
 
 print('original_data:')
-print(counter)
+print(Counter(map(tuple, pd.DataFrame(data)[1])))
 
 # manipulate data according to balancing target
 balanced_data = []
@@ -27,14 +35,7 @@ for label, count in counter_list:
 # shuffle data
 random.shuffle(balanced_data)
 
-print('balanced_data')
-print(Counter(pd.DataFrame(balanced_data)[1].apply(str)))
+print('encoded_balanced_data')
+print(Counter(map(tuple, pd.DataFrame(balanced_data)[1])))
 
-np.save('balanced_data', np.array(balanced_data, dtype=object))
-
-
-
-
-
-
-
+np.save('Files/preprocessed_data.npy', np.array(balanced_data, dtype=object))

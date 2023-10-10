@@ -31,7 +31,7 @@ def onehot_encode(lst):
 
 
 def onehot_decode(lst):
-    digits_in = math.log(len(lst[0]), 2)
+    digits_in = int(math.log(len(lst[0]), 2))
     bin_list = generate_binary_numbers(digits_in)
     one_hot_list = generate_onehot_list(digits_in)
     dictionary = {tuple(one_hot_list[i]): bin_list[i] for i in range(len(bin_list))}

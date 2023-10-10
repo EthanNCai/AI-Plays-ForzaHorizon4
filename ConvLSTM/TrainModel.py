@@ -40,14 +40,14 @@ plot_model(model, to_file='Files/convlstm_model_structure_plot.png', show_shapes
 print('input  shape:', train_inputs.shape)
 print('output shape:', train_outputs.shape)
 
-model.fit(train_inputs, train_outputs, epochs=1, batch_size=8,
+model.fit(train_inputs, train_outputs, epochs=1, batch_size=4,
           validation_data=(test_inputs, test_outputs))
 
 # Step4 : Evaluate model
 
-model.save('my_model{' + str(past_frames) + 'steps}.h5')
+model.save('cv_convlstm_model{' + str(past_frames) + 'steps}.h5')
 print('Model saved.')
-loaded_model = tf.keras.models.load_model('my_model{' + str(past_frames) + 'steps}.h5')
+loaded_model = tf.keras.models.load_model('cv_convlstm_model{' + str(past_frames) + 'steps}.h5')
 print('Model loaded.')
 test_loss, test_acc = loaded_model.evaluate(np.asarray(test_inputs), np.array(test_outputs))
 print('Val. accuracy:', test_acc)
