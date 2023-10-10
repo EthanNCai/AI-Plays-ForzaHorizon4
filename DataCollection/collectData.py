@@ -7,7 +7,6 @@ import numpy as np
 from Utilities.getkeys import key_check
 
 
-
 def processing_image(screen_in):
     height, width, _ = screen_in.shape
     left_mid = (0, height // 2)
@@ -45,6 +44,7 @@ def keys_to_output(keys_in):
         key_to_output[3] = 1
 
     return key_to_output
+
 
 # code begins here
 

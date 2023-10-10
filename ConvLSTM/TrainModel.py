@@ -23,11 +23,15 @@ train_inputs, test_inputs, train_outputs, test_outputs = train_test_split(
 # Step2 : Define model
 
 model = Sequential()
-model.add(ConvLSTM2D(filters=4, kernel_size=(3, 3), activation='tanh', data_format="channels_last",
-                     recurrent_dropout=0.2, return_sequences=True, input_shape=(train_inputs.shape[1],
-                                                                                train_inputs.shape[2],
-                                                                                train_inputs.shape[3],
-                                                                                train_inputs.shape[4])))
+model.add(ConvLSTM2D(filters=4,kernel_size=(3, 3),
+                     activation='tanh',
+                     data_format="channels_last",
+                     recurrent_dropout=0.2,
+                     return_sequences=True,
+                     input_shape=(train_inputs.shape[1],
+                                  train_inputs.shape[2],
+                                  train_inputs.shape[3],
+                                  train_inputs.shape[4])))
 model.add(MaxPooling3D(pool_size=(1, 2, 2), padding='same', data_format='channels_last'))
 model.add(Flatten())
 model.add(Dense(16, activation="softmax"))
