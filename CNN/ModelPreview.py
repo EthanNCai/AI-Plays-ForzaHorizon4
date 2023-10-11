@@ -25,7 +25,7 @@ for index, data in enumerate(train_data):
     prediction = loaded_model.predict(test_inputs)
     # acquire the argmax
     prediction_argmax = np.argmax(prediction[0])
-    # generate a one_hot encoded result according to the prediction argmax value
+    # generate a one_hot encoded result according to the predicted argmax value
     one_hot_result = [np.eye(prediction[0].shape[0])[prediction_argmax].astype(int).tolist()]
     # generate the prediction confidence
     confidence = max(prediction[0])

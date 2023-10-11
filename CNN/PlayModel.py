@@ -1,7 +1,7 @@
 import cv2
 from Utilities.grabscreen import grab_screen
 import numpy as np
-import Utilities.edge_processing as ep
+import Utilities.cv_edge_processing as ep
 import tensorflow as tf
 import Utilities.onehot as oh
 import Utilities.translate_result as tr

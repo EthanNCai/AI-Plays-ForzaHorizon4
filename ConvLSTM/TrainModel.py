@@ -51,7 +51,7 @@ model.fit(train_inputs, train_outputs, epochs=1, batch_size=4,
 
 model.save('cv_convlstm_model{' + str(past_frames) + 'steps}.h5')
 print('Model saved.')
-loaded_model = tf.keras.models.load_model('cv_convlstm_model{' + str(past_frames) + 'steps}.h5')
+loaded_model = tf.keras.models.load_model('Files/cv_convlstm_model{' + str(past_frames) + 'steps}.h5')
 print('Model loaded.')
 test_loss, test_acc = loaded_model.evaluate(np.asarray(test_inputs), np.array(test_outputs))
 print('Val. accuracy:', test_acc)

@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 
-def edge_processing(screen_in):
+def edge_processing(screen_in, resize_width=200, resize_height=100):
 
     height, width, _ = screen_in.shape
     left_mid = (0, height // 2)
@@ -19,5 +19,5 @@ def edge_processing(screen_in):
     screen_in = cv2.dilate(screen_in, kernel, iterations=1)
     edges = cv2.Canny(screen_in, 255, 255)
     roi = cv2.bitwise_and(edges, edges, mask=mask)
-    screen_out = cv2.resize(roi, (200, 100))
+    screen_out = cv2.resize(roi, (resize_width, resize_height))
     return screen_out
