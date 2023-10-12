@@ -1,8 +1,8 @@
 import os.path
 import cv2
 import time
-from Utilities.grabscreen import grab_screen
 import numpy as np
+from Utilities.grabscreen import grab_screen
 from Utilities.getkeys import key_check, key_to_wasd_format
 from Utilities.cv_crop_processing import crop_screen
 
