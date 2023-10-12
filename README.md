@@ -80,7 +80,7 @@ In Python.
 I used queue structure to store the past $n$ frames, 
 which is surrounded by blue dotted lines on the picture. 
 As the game progresses, we get a new frame $f_0$ and add it to the queue,
-since the length of the queue is fixed, we remove the oldest $f_n+1$ frame 
+since the length of the queue is fixed, we remove the oldest $f_{n+1}$ frame 
 from the queue so that the queue always holds the current
 frame and the $n$ frames before the current frame for input to the convLSTM.
 
