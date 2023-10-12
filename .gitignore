@@ -13,5 +13,10 @@
 /CNN/Files/my_model.h5
 /ConvLSTM/my_model{60steps}.h5
 /ConvLSTM/a_little_test.py
-/ConvLSTM/Files/
-/CNN/Files/
+
+/ConvLSTM/Files/cv_convlstm_model{20steps}.h5
+/ConvLSTM/Files/my_model{60steps}.h5
+/ConvLSTM/Files/preprocessed_data.npy
+/CNN/Files/cv_cnn_model.h5
+/CNN/Files/preprocessed_data.npy
+/CNN/Files/train_data.npy

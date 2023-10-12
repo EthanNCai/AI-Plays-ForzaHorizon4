@@ -88,18 +88,49 @@ frame and the $n$ frames before the current frame for input to the convLSTM.
 
 ## Getting Started
 
-### Step1 : capture dataset
+### Step1 : create a dataset
 
 You need to collect real human in-game actions and the corresponding game 
 screens as a training set. Here you can choose to record your own training 
 set using the python script I provided or download the training set I previously collected.
 
-[Download  dataset-0.npy](www.google.com.hk)
+[Download  dataset-0.npy](not_available)
 
-### Step3 : preview dataset
+If you want to create your own dataset, here's how:
 
-### Step2 : preprocess dataset
+*  1._Confirm the frame capturing area_: use __DataCollection/CapturePreview.py__ 
+to preview the frame capture
+zone, 
+*  2._Start recording your gameplay_: After you confirm the frame capturing area, in directory
+__DataCollection__,
+make sure the parameter of _grab_screen()_
+in __DataCollection.py__ is identical to the one of _grab_screen()_'s in __ModelPreview.py__
+*  Find more details in code comments
+
+### Step3 : preview the dataset
+
+You can preview the dataset with the script I provided,
+__DataCollection/DataPreview.py__ This will sequentially play the frame and the corresponding 
+label which is a four element long vector : _[W,A,S,D]_ 
+
+*   it just like playing a video
 
 
-### Step3 : choose, train, preview and finally play model
+### Step4 : preprocess, train, preview and finally play model
+
+
+Inside __CNN__ and __convLSTM__ directories, you can preprocess, train,
+preview and play the corresponding 
+model.
+
+ __DataPreprocess.py__  performed label balancing,
+one-hot encoding and more to the dataset.
+For convLSTM in particular, its __DataPreprocess.py__ also includes converting
+the dataset into sequential samples according to a specified _time step_.
+
+after data preprocessing, use __trainModel.py__ to train and __ModelPreview.py__ to preview.
+
+
+
+
 
