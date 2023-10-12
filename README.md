@@ -70,9 +70,19 @@ The convLSTM has a very important parameter
 with respect to the CNN. 
 It is the _time step_
 of the LSTM network. In the case of images,
-its value is n. Unlike CNNs which feed a single image into the model at a time, convLSTM feeds a sequence of images into the model. In this project it is a sequence of images from the past n frames. We need to feed the LSTM with n frames from framen until frame0 so that the convLSTM can make decisions based on the information it gets from framen to frame0.
+its value is $n$. Unlike CNNs which feed 
+a single image into the model at a time, convLSTM feeds a sequence of images into the model. 
+In this project it is a sequence of images from the past $n$ frames. We need to feed the LSTM with $n$
+frames from $f_n$ until $f_0$ so that the convLSTM can make decisions based 
+on the information it gets from $f_n$ to $f_0$.
 
-From a programming perspective. I use the data structure of a queue to store the past n frames, which is surrounded by blue dotted lines on the picture. As the game progresses, we get a new frame f0 and add it to the queue, since the length of the queue is fixed, we remove the oldest fn+1 frame from the queue so that the queue always holds the current frame and the n frames before the current frame for input to the convLSTM.
+In Python.
+I used queue structure to store the past $n$ frames, 
+which is surrounded by blue dotted lines on the picture. 
+As the game progresses, we get a new frame $f_0$ and add it to the queue,
+since the length of the queue is fixed, we remove the oldest $f_(n+1)$ frame 
+from the queue so that the queue always holds the current
+frame and the $n$ frames before the current frame for input to the convLSTM.
 
 ![](Pictures/convLSTM_structure.png)
 
