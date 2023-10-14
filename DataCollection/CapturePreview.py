@@ -1,6 +1,7 @@
 import cv2
 from Utilities.grabscreen import grab_screen
 from Utilities.cv_crop_processing import crop_screen
+from Utilities.cv_edge_processing import edge_processing
 import numpy as np
 
 while True:
@@ -11,9 +12,7 @@ while True:
     # cropping the image
     cropped_screen = crop_screen(screen, trim_rate=0.3)
 
-    # convert to gray scale & resize
-    cropped_gray = cv2.cvtColor(cropped_screen, cv2.COLOR_BGR2GRAY)
-    resized_image = cv2.resize(cropped_gray, (300, 150))
+    resized_image = edge_processing(cropped_screen, resize_width=200, resize_height=100)
 
     cv2.imshow('original', screen_rgb)
     cv2.imshow('processed', resized_image)
