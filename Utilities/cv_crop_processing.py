@@ -6,4 +6,4 @@ def crop_screen(screen_in, trim_rate=0.1):
     height, width, _ = screen_in.shape
     padding_w = int(width * trim_rate)
     padding_h = int(height * trim_rate)
-    return screen_in[padding_h:-padding_h, padding_w:-padding_w, :]
+    return screen_in[padding_h:, :, :]
