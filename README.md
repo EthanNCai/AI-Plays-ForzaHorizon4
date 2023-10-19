@@ -95,7 +95,7 @@ screens as a training set. Here you can choose to record your own training
 set using the python script I provided or download the training set I previously collected.
 
 > sorry, the download service of my website is currently unavailable.
-> please send email to chickenbilibili@outlook.com to acquire this dataset.
+> please send a message to chickenbilibili@outlook.com to acquire this dataset.
  
 [Download  dataset-0.npy](not_available)
 
