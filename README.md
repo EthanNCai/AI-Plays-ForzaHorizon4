@@ -94,6 +94,9 @@ You need to collect real human in-game actions and the corresponding game
 screens as a training set. Here you can choose to record your own training 
 set using the python script I provided or download the training set I previously collected.
 
+> sorry, the download service of my website is currently unavailable.
+> please send email to chickenbilibili@outlook.com to acquire this dataset.
+ 
 [Download  dataset-0.npy](not_available)
 
 If you want to create your own dataset, here's how:
@@ -131,6 +134,6 @@ the dataset into sequential samples according to a specified _time step_.
 after data preprocessing, use __trainModel.py__ to train and __ModelPreview.py__ to preview.
 
 
-
+not finished yet......
 
 
