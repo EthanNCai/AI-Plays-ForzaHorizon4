@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 
 
-file_name = 'Files/dataset-0.npy'
+file_name = 'train_data.npy'
 train_data = list(np.load(file_name, allow_pickle=True))
 
 for data in train_data:
