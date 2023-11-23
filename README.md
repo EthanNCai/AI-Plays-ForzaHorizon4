@@ -126,14 +126,26 @@ Inside __CNN__ and __convLSTM__ directories, you can preprocess, train,
 preview and play the corresponding 
 model.
 
+
+After the dataset inplace, you still need to do one more thing before training,
+that is, data preprocess. Here's how.
+
+*   For CNN
+
+    *    convert the `[W,A,S,D]` raw label format into the one-hot encoded format
+    *    balance the data to prevent the model fall into the shortcut solution 
+*  For LSTM
+    *    convert the `[W,A,S,D]` raw label format into the one-hot encoded format
+    *    restructure the dataset. that is, form the raw-data structure like `[(img_1,key_1),(img_2,key_2)...]` to something like `[([img_1,img_2...img_n],key_n),([img_2,img_3...img_n+1],key_n+1)...]` the `n` here is acutally the `timestep`  in LSTM
+    *    balance the data to prevent the model fall into the shortcut solution 
+
  __DataPreprocess.py__  performed label balancing,
 one-hot encoding and more to the dataset.
 For convLSTM in particular, its __DataPreprocess.py__ also includes converting
 the dataset into sequential samples according to a specified _time step_.
 
-after data preprocessing, use __trainModel.py__ to train and __ModelPreview.py__ to preview.
+after data preprocessing, use __trainModel.py__ to load and train the preprocessed data.
 
-
-not finished yet......
+> warning: In order to successfully train the model, the `timestep` value in both `DataPreprocess.py` and `tranModel.py` must be consisted. 
 
 
