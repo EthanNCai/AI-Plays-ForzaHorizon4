@@ -22,3 +22,4 @@
 /CNN/Files/train_data.npy
 /ForPre/
 /DataCollection/Files/
+/ConvLSTM/Files/cv_convlstm_model{60steps}.h5

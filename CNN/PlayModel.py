@@ -13,7 +13,7 @@ loaded_model = tf.keras.models.load_model('Files/cv_cnn_model.h5')
 
 while True:
 
-    # grab screen information, apply some mask according to our model
+    # grab screen information, apply some mask according to our mowdel
     # (in this case, edge detection)
     screen = grab_screen(display_index=1, region=(200, 250, 700, 530))
     output = ep.edge_processing(screen)

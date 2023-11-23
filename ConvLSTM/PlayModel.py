@@ -6,6 +6,7 @@ import Utilities.onehot as oh
 import Utilities.translate_result as tr
 from Utilities.grabscreen import grab_screen
 from Utilities.cv_crop_processing import crop_screen
+from Utilities.cv_edge_processing import edge_processing
 import time
 import os
 
@@ -35,15 +36,13 @@ while True:
     # acquire screen signal.
     # then, cropping, gray scaling, post-processing
     screen = grab_screen(display_index=1, region=(0, 0, 1280, 720))
-    screen_rgb = cv2.cvtColor(screen, cv2.COLOR_BGR2RGB)
     cropped_screen = crop_screen(screen, trim_rate=0.2)
-    cropped_gray = cv2.cvtColor(cropped_screen, cv2.COLOR_BGR2GRAY)
-    resized_image = cv2.resize(cropped_gray, (200, 100))
+    resized_screen = edge_processing(cropped_screen, resize_width=200, resize_height=100)
 
-    print(resized_image)
+    cv2.imshow('test', resized_screen)
 
     # manipulate the gray scale image matrix shape (width,height) -> (width,height,depth)
-    test_inputs = np.expand_dims(screen, axis=-1)
+    test_inputs = np.expand_dims(resized_screen, axis=-1)
 
     # this is the past-n-frames queue for generating sequential data for LSTM network
     if q.qsize() == past_frames:
@@ -70,10 +69,8 @@ while True:
     time_checkpoint_b = time.time()
     # insert the fps information to the screen
     fps = 1 / (time_checkpoint_b - time_checkpoint_a)
-    cv2.putText(screen_rgb, str("{:.2f}".format(fps)), (50, 50), font, font_scale, font_color, thickness, cv2.LINE_AA)
 
     # print some real-time information
-    cv2.imshow('test', screen_rgb)
     print('\rframe:', frames_counter,
           'pred:', predicted_action,
           'confidence:', confidence,

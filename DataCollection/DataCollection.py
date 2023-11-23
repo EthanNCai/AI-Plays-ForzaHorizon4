@@ -15,7 +15,7 @@ font_color = (255, 255, 255)
 thickness = 1
 
 # model configurations
-serial_number = 1
+serial_number = 2
 file_name = "Files/dataset-" + str(serial_number) + ".npy"
 
 
@@ -36,7 +36,7 @@ for i in list(range(5))[::-1]:
     time.sleep(1)
 
 # Target FPS
-target_fps = 25
+target_fps = 15
 delay = 1 / target_fps
 
 while True:
