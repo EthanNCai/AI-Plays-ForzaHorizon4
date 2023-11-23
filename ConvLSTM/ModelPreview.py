@@ -31,6 +31,7 @@ for index, data in enumerate(train_data):
 
     test_inputs = np.expand_dims(img, axis=-1)
 
+    # the queue that I've mentioned in the Readme file
     if q.qsize() == past_frames:
         q.get()
     q.put(test_inputs)
