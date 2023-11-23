@@ -63,7 +63,7 @@ breakthrough in driving skill, perhaps reinforcement
 training is a better option.
 
 ### CNN
-![pic0](Pictures/CNN_structure.png)
+![pic0](pictures_for_readme/cnn.jpg)
 ### convLSTM
 
 The convLSTM has a very important parameter 
@@ -84,7 +84,7 @@ since the length of the queue is fixed, we remove the oldest $f_{n+1}$ frame
 from the queue so that the queue always holds the current
 frame and the $n$ frames before the current frame for input to the convLSTM.
 
-![pic1](Pictures/convLSTM_structure.png)
+![pic1](pictures_for_readme/lstm.jpg)
 
 ## Getting Started
 
