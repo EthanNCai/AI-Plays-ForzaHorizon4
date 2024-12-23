@@ -88,8 +88,6 @@ frame and the $n$ frames before the current frame for input to the convLSTM.
 
 ## Getting Started
 
-### Step1 : create a dataset
-
 You need to collect real human in-game actions and the corresponding game 
 screens as a training set. Here you can choose to record your own training 
 set using the python script I provided or download the training set I previously collected.
@@ -98,6 +96,14 @@ set using the python script I provided or download the training set I previously
 > If the link below is down, please send a message to chickenbilibili@outlook.com.
  
 [Download  dataset-0.npy](https://1drv.ms/u/c/257cf703ad194ae1/EeFKGa0D93wggCUwEQAAAAABAWu52QyIaEb_sNwxk4dsWw?wdOrigin=OWA.LINK&wdPreviousSession=3e77cd8f-38e0-5e4b-9279-5d4e6dd1f813)
+
+Here's how to use it
+
+*  0. put 'train_data.npy' on DataCollection/Files and run DataCollection/DataPreview.py to preview the dataset
+*  1. put 'train_data.npy' on ConvLSTM/Files and run ConvLSTM/DataPreprocess.py to create an processed data for train
+*  2. run ConvLSTM/TrainModel.py to train
+*  3. run ConvLSTM/ModelPreview.py to test the model on train set.
+*  4. run ConvLSTM/PlayModel.py to run the model directly on game in real time, but this part of the code is incomplete
 
 If you want to create your own dataset, here's how:
 
@@ -109,43 +115,5 @@ __DataCollection__,
 make sure the parameter of _grab_screen()_
 in __DataCollection.py__ is identical to the one of _grab_screen()_'s in __ModelPreview.py__
 *  Find more details in code comments
-
-### Step3 : preview the dataset
-
-You can preview the dataset with the script I provided,
-__DataCollection/DataPreview.py__ This will sequentially play the frame and the corresponding 
-label which is a four element long vector : _[W,A,S,D]_ 
-
-*   it just like playing a video
-
-
-### Step4 : preprocess, train, preview and finally play model
-
-
-Inside __CNN__ and __convLSTM__ directories, you can preprocess, train,
-preview and play the corresponding 
-model.
-
-
-After the dataset inplace, you still need to do one more thing before training,
-that is, data preprocess. Here's how.
-
-*   For CNN
-
-    *    convert the `[W,A,S,D]` raw label format into the one-hot encoded format
-    *    balance the data to prevent the model fall into the shortcut solution 
-*  For LSTM
-    *    convert the `[W,A,S,D]` raw label format into the one-hot encoded format
-    *    restructure the dataset. that is, form the raw-data structure like `[(img_1,key_1),(img_2,key_2)...]` to something like `[([img_1,img_2...img_n],key_n),([img_2,img_3...img_n+1],key_n+1)...]` the `n` here is acutally the `timestep`  in LSTM
-    *    balance the data to prevent the model fall into the shortcut solution 
-
- __DataPreprocess.py__  performed label balancing,
-one-hot encoding and more to the dataset.
-For convLSTM in particular, its __DataPreprocess.py__ also includes converting
-the dataset into sequential samples according to a specified _time step_.
-
-after data preprocessing, use __trainModel.py__ to load and train the preprocessed data.
-
-> warning: In order to successfully train the model, the `timestep` value in both `DataPreprocess.py` and `tranModel.py` must be consisted. 
 
 
